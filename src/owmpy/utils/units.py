@@ -3,9 +3,10 @@ from typing import NamedTuple as _NamedTuple
 from ._classes import Number as _Number
 
 
-class _Units(_NamedTuple):
+class Units(_NamedTuple):
     temp: tuple[str, str] = ("K", "Kelvin")
     speed: tuple[str, str] = ("m/s", "meter/sec")
+    api_name: str = "standard"
 
     time = ("unix", "UTC")
     pressure = "hPa"
@@ -14,29 +15,31 @@ class _Units(_NamedTuple):
     degrees = ("°", "degrees (meteorological)")
 
 
-class Units(_Enum):
-    STANDARD = _Units()
-    METRIC   = _Units(temp=("°C", "Celsius"))
-    IMPERIAL = _Units(temp=("°F", "Fahrenheit"), speed=("mph", "miles/hour"))
+class StandardUnits:
+    STANDARD = Units()
+    METRIC   = Units(temp=("°C", "Celsius"), api_name="metric")
+    IMPERIAL = Units(temp=("°F", "Fahrenheit"), speed=("mph", "miles/hour"), api_name="imperial")
 
 
-def convert_temp(temp: _Number, __from: Units = Units.STANDARD, __to: Units = Units.IMPERIAL) -> _Number:
+def convert_temp(
+    temp: _Number, __from: Units = StandardUnits.STANDARD, __to: Units = StandardUnits.IMPERIAL
+) -> _Number:
     """Converts temperature between different units"""
     if __from == __to:
         return temp
 
     match (__from, __to):
-        case (Units.STANDARD, Units.METRIC):
+        case (StandardUnits.STANDARD, StandardUnits.METRIC):
             return temp - 273.15
-        case (Units.STANDARD, Units.IMPERIAL):
+        case (StandardUnits.STANDARD, StandardUnits.IMPERIAL):
             return 1.8 * (temp - 273.15) + 32
-        case (Units.METRIC, Units.STANDARD):
+        case (StandardUnits.METRIC, StandardUnits.STANDARD):
             return temp + 273.15
-        case (Units.METRIC, Units.IMPERIAL):
+        case (StandardUnits.METRIC, StandardUnits.IMPERIAL):
             return 1.8 * temp + 32
-        case (Units.IMPERIAL, Units.STANDARD):
+        case (StandardUnits.IMPERIAL, StandardUnits.STANDARD):
             return (temp - 32) * 1.8 + 273.15
-        case (Units.IMPERIAL, Units.METRIC):
+        case (StandardUnits.IMPERIAL, StandardUnits.METRIC):
             return (temp - 32) * 1.8
         case _:
             raise NotImplementedError(
@@ -47,14 +50,19 @@ def convert_temp(temp: _Number, __from: Units = Units.STANDARD, __to: Units = Un
 _MPS_PER_MPH = 0.44704
 
 
-def convert_speed(speed: _Number, __from: Units = Units.STANDARD, __to: Units = Units.IMPERIAL) -> _Number:
-    if __from in {Units.STANDARD, Units.METRIC} and __to in {Units.STANDARD, Units.METRIC}:
+def convert_speed(
+    speed: _Number, __from: Units = StandardUnits.STANDARD, __to: Units = StandardUnits.IMPERIAL
+) -> _Number:
+    if __from in {StandardUnits.STANDARD, StandardUnits.METRIC} and __to in {
+        StandardUnits.STANDARD,
+        StandardUnits.METRIC,
+    }:
         return speed
 
     match (__from, __to):
-        case (Units.STANDARD | Units.METRIC, Units.IMPERIAL):
+        case (StandardUnits.STANDARD | StandardUnits.METRIC, StandardUnits.IMPERIAL):
             return speed / _MPS_PER_MPH
-        case (Units.IMPERIAL, Units.STANDARD | Units.METRIC):
+        case (StandardUnits.IMPERIAL, StandardUnits.STANDARD | StandardUnits.METRIC):
             return _MPS_PER_MPH * speed
         case _:
             raise NotImplementedError(

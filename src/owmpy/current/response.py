@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic import BaseModel
 
-from ..utils import Number, Units
+from ..utils import Number, StandardUnits
 
 
 class Coord(BaseModel):
@@ -78,10 +78,10 @@ class Rain(BaseModel):
 class CurrentWeatherStatus(BaseModel):
     """The weather data served by https://openweathermap.org/current. Most docstrings stolen from there too."""
 
+    units: _Units = StandardUnits.STANDARD
+    """Units to use. Served by internal API."""
     id: int
     """City identification"""
-    units: Units = Units.STANDARD
-    """Units to use. Served by internal API."""
     dt: int
     """Data receiving time"""
     name: str
