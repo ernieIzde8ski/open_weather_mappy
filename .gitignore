@@ -1,0 +1,8 @@
+# Development tools
+venv/
+.vscode/
+
+# Artefacts of building
+dist/
+*.egg-info/
+__pycache__/
