@@ -1,27 +1,8 @@
-from enum import Enum
-from typing import NamedTuple, Optional, TypedDict
+from typing import Optional
 
 from pydantic import BaseModel
-from typing_extensions import NotRequired
 
-from ..utils._types import Number
-
-
-class _Units(NamedTuple):
-    temp: tuple[str, str] = ("K", "Kelvin")
-    speed: tuple[str, str] = ("m/s", "meter/sec")
-
-    time = ("unix", "UTC")
-    pressure = "hPa"
-    cloudiness = "%"
-    precipitation = ("mm", "millimeters")
-    degrees = ("°", "degrees (meteorological)")
-
-
-class Units(Enum):
-    STANDARD = _Units()
-    METRIC   = _Units(temp=("°C", "Celsius"))
-    IMPERIAL = _Units(temp=("°F", "Fahrenheit"), speed=("mph", "miles/hour"))
+from ..utils import Number, Units
 
 
 class Coord(BaseModel):
