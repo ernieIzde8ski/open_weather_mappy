@@ -37,9 +37,9 @@ class Main(BaseModel):
     """Maximum temperature at the moment. This is deviation from current temp that is possible for large cities and megalopolises geographically expanded (use these parameters optionally)"""
     pressure: int
     """Atmospheric pressure (on the sea level, if there is no sea_level or grnd_level data)"""
-    sea_level: int
+    sea_level: Optional[int] = None
     """Atmospheric pressure on the sea level"""
-    grnd_level: int
+    grnd_level: Optional[int] = None
     """Atmospheric pressure on the ground level"""
 
 
@@ -48,7 +48,7 @@ class Wind(BaseModel):
     """Wind direction"""
     speed: float
     """Wind speed. Differs from wind gust in that it measures instantaneous velocity."""
-    gust: float
+    gust: Optional[float] = None
     """Wind gust. Differs from wind speed in that it measures short bursts in wind."""
 
 
