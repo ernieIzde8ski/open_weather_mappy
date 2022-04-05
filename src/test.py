@@ -2,12 +2,18 @@ import asyncio
 from os import getenv
 
 from owmpy.current import CurrentWeather
+import sys
 
 
 async def main():
     # Get a weather token from openweathermap.org
-    async with CurrentWeather(appid=getenv("WEATHER_TOKEN")) as weather:
-        response = await weather.get((0, 0))
+    async with CurrentWeather(appid=getenv("CURRENT_WEATHER_TOKEN")) as weather:
+        dft = [0]
+        lat = int((sys.argv[1:2] or dft)[0])
+        lon = int((sys.argv[2:3] or dft)[0])
+
+        response = await weather.get((lat, lon))
+
         print(response)
 
 

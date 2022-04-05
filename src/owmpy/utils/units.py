@@ -17,7 +17,7 @@ class Units(_NamedTuple):
 
 class StandardUnits:
     STANDARD = Units()
-    METRIC   = Units(temp=("°C", "Celsius"), api_name="metric")
+    METRIC = Units(temp=("°C", "Celsius"), api_name="metric")
     IMPERIAL = Units(temp=("°F", "Fahrenheit"), speed=("mph", "miles/hour"), api_name="imperial")
 
 

@@ -17,12 +17,14 @@ class CurrentWeather(_AutomaticClient):
         params = {"appid": self.appid, "lat": coords[0], "lon": coords[1], "units": units.api_name}
         if lang:
             params["lang"] = lang
+
         async with self.client.get(self.BASE_URL, params=params) as resp:
             resp = await resp.json()
             if "cod" in resp and "message" in resp:
                 raise CurrentWeatherAPIException(resp["cod"], resp["message"])
             if "rain" in resp:
-                for key in resp["rain"].keys():
+                keys: set[str] = set(resp["rain"])
+                for key in keys:
                     resp["rain"][f"_{key}"] = resp["rain"][key]
                     del resp["rain"][key]
-            return CurrentWeatherStatus(**resp, units=units)
+            return resp
