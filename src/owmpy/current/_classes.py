@@ -27,4 +27,5 @@ class CurrentWeather(_AutomaticClient):
                 for key in keys:
                     resp["rain"][f"_{key}"] = resp["rain"][key]
                     del resp["rain"][key]
-            return resp
+
+            return CurrentWeatherStatus(**resp)

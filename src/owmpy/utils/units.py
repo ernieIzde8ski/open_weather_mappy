@@ -1,6 +1,5 @@
-from enum import Enum as _Enum
 from typing import NamedTuple as _NamedTuple
-from ._classes import Number as _Number
+from ._classes import Number
 
 
 class Units(_NamedTuple):
@@ -21,9 +20,7 @@ class StandardUnits:
     IMPERIAL = Units(temp=("°F", "Fahrenheit"), speed=("mph", "miles/hour"), api_name="imperial")
 
 
-def convert_temp(
-    temp: _Number, __from: Units = StandardUnits.STANDARD, __to: Units = StandardUnits.IMPERIAL
-) -> _Number:
+def convert_temp(temp: Number, __from: Units = StandardUnits.STANDARD, __to: Units = StandardUnits.IMPERIAL) -> Number:
     """Converts temperature between different units"""
     if __from == __to:
         return temp
@@ -51,8 +48,8 @@ _MPS_PER_MPH = 0.44704
 
 
 def convert_speed(
-    speed: _Number, __from: Units = StandardUnits.STANDARD, __to: Units = StandardUnits.IMPERIAL
-) -> _Number:
+    speed: Number, __from: Units = StandardUnits.STANDARD, __to: Units = StandardUnits.IMPERIAL
+) -> Number:
     if __from in {StandardUnits.STANDARD, StandardUnits.METRIC} and __to in {
         StandardUnits.STANDARD,
         StandardUnits.METRIC,
