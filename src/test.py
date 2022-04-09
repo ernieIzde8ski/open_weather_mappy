@@ -1,8 +1,9 @@
 import asyncio
+import sys
 from os import getenv
 
 from owmpy.current import CurrentWeather
-import sys
+from owmpy.utils.units import StandardUnits
 
 
 async def main():
@@ -12,7 +13,7 @@ async def main():
         lat = int((sys.argv[1:2] or dft)[0])
         lon = int((sys.argv[2:3] or dft)[0])
 
-        response = await weather.get((lat, lon))
+        response = await weather.get((lat, lon), units=StandardUnits.METRIC)
 
         print(response)
 

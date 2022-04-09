@@ -28,4 +28,4 @@ class CurrentWeather(_AutomaticClient):
                     resp["rain"][f"_{key}"] = resp["rain"][key]
                     del resp["rain"][key]
 
-            return CurrentWeatherStatus(**resp)
+            return CurrentWeatherStatus(**resp, units=units)
