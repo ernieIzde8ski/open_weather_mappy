@@ -1,23 +1,23 @@
 from typing import NamedTuple as _NamedTuple
-from ._classes import Number
+from ._classes import Number, ShortLong
 
 
 class Units(_NamedTuple):
-    temp: tuple[str, str] = ("K", "Kelvin")
-    speed: tuple[str, str] = ("m/s", "meter/sec")
+    temp: ShortLong = ShortLong("K", "Kelvin")
+    speed: ShortLong = ShortLong("m/s", "meter/sec")
     api_name: str = "standard"
 
     time = ("unix", "UTC")
     pressure = "hPa"
     cloudiness = "%"
-    precipitation = ("mm", "millimeters")
-    degrees = ("°", "degrees (meteorological)")
+    precipitation = ShortLong("mm", "millimeters")
+    degrees = ShortLong("°", "degrees (meteorological)")
 
 
 class StandardUnits:
     STANDARD = Units()
-    METRIC = Units(temp=("°C", "Celsius"), api_name="metric")
-    IMPERIAL = Units(temp=("°F", "Fahrenheit"), speed=("mph", "miles/hour"), api_name="imperial")
+    METRIC = Units(temp=ShortLong("°C", "Celsius"), api_name="metric")
+    IMPERIAL = Units(temp=ShortLong("°F", "Fahrenheit"), speed=ShortLong("mph", "miles/hour"), api_name="imperial")
 
 
 def convert_temp(temp: Number, __from: Units = StandardUnits.STANDARD, __to: Units = StandardUnits.IMPERIAL) -> Number:
