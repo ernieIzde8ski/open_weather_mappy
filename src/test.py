@@ -3,7 +3,7 @@ import sys
 from os import getenv
 
 from owmpy.current import CurrentWeather
-from owmpy.utils.units import StandardUnits
+from owmpy.utils import StandardUnits, convert_temp
 
 
 async def main():
@@ -16,6 +16,16 @@ async def main():
         response = await weather.get((lat, lon), units=StandardUnits.METRIC)
 
         print(response)
+
+        print(
+            f"Metric: {convert_temp(response.main.temp, response.units, StandardUnits.METRIC)}{StandardUnits.METRIC.temp[0]}"
+        )
+        print(
+            f"Kelvin: {convert_temp(response.main.temp, response.units, StandardUnits.STANDARD)}{StandardUnits.STANDARD.temp[0]}"
+        )
+        print(
+            f"Cringe: {convert_temp(response.main.temp, response.units, StandardUnits.IMPERIAL)}{StandardUnits.IMPERIAL.temp[0]}"
+        )
 
 
 if __name__ == "__main__":
