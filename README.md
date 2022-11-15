@@ -32,3 +32,13 @@ Optionally, you can supply your own ClientSession:
 import aiohttp
 weather = CurrentWeather(appid="token", client=aiohttp.ClientSession())
 ```
+
+## Building
+
+<!-- for when I inevitably forget again -->
+
+```sh
+rm -r dist
+python -m build
+twine upload 'dist/*'
+```
