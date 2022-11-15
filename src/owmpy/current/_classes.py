@@ -12,9 +12,17 @@ class CurrentWeather(_AutomaticClient):
     BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 
     async def get(
-        self, coords: tuple[_Number, _Number], units: Units = StandardUnits.STANDARD, lang: str | None = None
+        self,
+        coords: tuple[_Number, _Number],
+        units: Units = StandardUnits.STANDARD,
+        lang: str | None = None,
     ) -> CurrentWeatherStatus:
-        params = {"appid": self.appid, "lat": coords[0], "lon": coords[1], "units": units.api_name}
+        params = {
+            "appid": self.appid,
+            "lat": coords[0],
+            "lon": coords[1],
+            "units": units.api_name,
+        }
         if lang:
             params["lang"] = lang
 
@@ -28,4 +36,4 @@ class CurrentWeather(_AutomaticClient):
                     resp["rain"][f"_{key}"] = resp["rain"][key]
                     del resp["rain"][key]
 
-            return CurrentWeatherStatus(**resp, units=units)
+        return CurrentWeatherStatus(**resp, units=units)

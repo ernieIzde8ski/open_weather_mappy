@@ -16,11 +16,11 @@ class ShortLong(NamedTuple):
 
 class _AutomaticClient:
     client: _aiohttp.ClientSession
-    appid: str | None
+    appid: str
 
-    def __init__(self, client: _aiohttp.ClientSession | None = None, appid: str | None = None) -> None:
+    def __init__(self, appid: str, client: _aiohttp.ClientSession | None = None) -> None:
+        self.appid = appid
         self.client = client or _aiohttp.ClientSession()
-        self.appid = appid or None
 
     async def __aenter__(self, *args):
         return self

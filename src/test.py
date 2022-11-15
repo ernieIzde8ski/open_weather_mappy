@@ -1,34 +1,34 @@
+from argparse import ArgumentParser
 import asyncio
 import sys
 from os import getenv
 
 from owmpy.current import CurrentWeather
-from owmpy.utils import StandardUnits, convert_temp
+from owmpy.utils import StandardUnits, convert_temp, Units
+
+argparser = ArgumentParser()
+argparser.add_argument("lat", type=float, default=0)
+argparser.add_argument("lon", type=float, default=0)
+argparser.add_argument("--token", type=str, default=None)
+args = argparser.parse_args()
 
 
 async def main():
     # Get a weather token from openweathermap.org
-    async with CurrentWeather(appid=getenv("CURRENT_WEATHER_TOKEN")) as weather:
-        dft = [0]
-        lat = int((sys.argv[1:2] or dft)[0])
-        lon = int((sys.argv[2:3] or dft)[0])
+    appid = args.token or getenv("CURRENT_WEATHER_TOKEN")
+    if not appid:
+        raise RuntimeError("CURRENT_WEATHER_TOKEN is not set")
 
-        response = await weather.get((lat, lon), units=StandardUnits.METRIC)
+    async with CurrentWeather(appid=appid) as weather:
+        degrees = (args.lat, args.lon)
+        response = await weather.get(degrees, units=StandardUnits.METRIC)
 
-        print(response)
-
-        print(
-            f"Metric: {convert_temp(response.main.temp, response.units, StandardUnits.METRIC)}{StandardUnits.METRIC.temp[0]}"
-        )
-        print(
-            f"Kelvin: {convert_temp(response.main.temp, response.units, StandardUnits.STANDARD)}{StandardUnits.STANDARD.temp[0]}"
-        )
-        print(
-            f"Cringe: {convert_temp(response.main.temp, response.units, StandardUnits.IMPERIAL)}{StandardUnits.IMPERIAL.temp[0]}"
-        )
+        for name in ["metric", "standard", "imperial"]:
+            units: Units = getattr(StandardUnits, name.upper())
+            temp = convert_temp(response.main.temp, response.units, units)
+            print(name.title() + ": \t", round(temp, 2), units.temp[0], sep="")
+        print("Reached end of program Flow")
 
 
 if __name__ == "__main__":
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(main())
+    resp = asyncio.run(main(), debug=True)

@@ -24,8 +24,6 @@ class Weather(BaseModel):
 
 
 class Main(BaseModel):
-    """Do not confuse `temp_min` or `temp_max` with daily lows/highs; see [here](https://openweathermap.org/current#min)"""
-
     temp: float
     """Temperature"""
     humidity: Number
