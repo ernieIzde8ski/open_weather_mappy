@@ -22,9 +22,12 @@ class _AutomaticClient:
         self.appid = appid
         self.client = client or _aiohttp.ClientSession()
 
+    async def close(self):
+        await self.client.close()
+
     async def __aenter__(self, *args):
         return self
 
     async def __aexit__(self, *args):
-        await self.client.close()
+        await self.close()
         return self

@@ -29,6 +29,7 @@ class Main(BaseModel):
     humidity: Number
     """Humidity"""
     feels_like: Number
+    """Temperature (felt)"""
     temp_min: Number
     """Minimum temperature at the moment. This is deviation from current temp that is possible for large cities and megalopolises geographically expanded (use these parameters optionally)"""
     temp_max: float
