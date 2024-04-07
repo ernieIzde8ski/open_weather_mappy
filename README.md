@@ -8,18 +8,18 @@ A wrapper for the [Open Weather Map API](https://openweathermap.org/api).
 
 ## Usage
 
-Import the class and make requests.
+Import the API and make requests.
 
 ```py
 import asyncio
 from os import getenv
 
-from owmpy.current import CurrentWeather
+from owmpy.current import Client
 
 
 async def main():
     # Get a weather token from openweathermap.org
-    async with CurrentWeather(appid="YOUR_TOKEN") as weather:
+    async with Client(appid="YOUR_API_TOKEN") as weather:
         response = await weather.get((0, 0))
     print(response)
 
@@ -32,7 +32,7 @@ Optionally, you can supply your own ClientSession:
 
 ```py
 import aiohttp
-weather = CurrentWeather(appid="token", client=aiohttp.ClientSession())
+weather = Client("YOUR_API_TOKEN", client_session=aiohttp.ClientSession())
 ```
 
 ## Building
