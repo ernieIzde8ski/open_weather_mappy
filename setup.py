@@ -2,7 +2,7 @@
 
 import re
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 string_equality = re.compile(r"""__([\w_]+)__\s*=\s*"(.+)"$""")
 
@@ -36,6 +36,8 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    packages=find_packages(),
+    package_data={"owmpy": ["py.typed"]},
     include_package_data=True,
     **data,  # type: ignore
 )

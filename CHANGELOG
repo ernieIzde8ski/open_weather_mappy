@@ -8,3 +8,7 @@
 
 - Restructure build system
 - Restructure codebase
+
+## v1.0.3
+
+- Add `py.typed` to `owmpy` package
