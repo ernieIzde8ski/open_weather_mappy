@@ -10,5 +10,5 @@ class Sys(BaseModel):
     """Sunrise time"""
     sunset: int
     """Sunset time"""
-    type: str | None = None
-    id: str | None = None
+    type: int | None = None
+    id: int | None = None

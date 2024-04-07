@@ -9,6 +9,10 @@
 - Restructure build system
 - Restructure codebase
 
-## v1.0.3
+### v1.0.3
 
 - Add `py.typed` to `owmpy` package
+
+### v1.0.4
+
+- Change sys.id, sys.type to int
