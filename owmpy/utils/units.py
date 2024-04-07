@@ -1,4 +1,5 @@
 from typing import NamedTuple as _NamedTuple
+
 from ._classes import Number, ShortLong
 
 

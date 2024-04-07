@@ -1,6 +1,6 @@
 from typing import NamedTuple
-import aiohttp as _aiohttp
 
+import aiohttp as _aiohttp
 
 Number = int | float
 

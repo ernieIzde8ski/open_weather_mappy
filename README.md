@@ -1,6 +1,10 @@
 # Open Weather Mappy
 
-Wrapper to interact with the [Open Weather Map](https://openweathermap.org/api) Current Weather Data API. Install from pip under the name `owmpy`.
+A wrapper for the [Open Weather Map API](https://openweathermap.org/api).
+
+## Installation
+
+`pip install owmpy`
 
 ## Usage
 
@@ -15,15 +19,13 @@ from owmpy.current import CurrentWeather
 
 async def main():
     # Get a weather token from openweathermap.org
-    async with CurrentWeather(appid=getenv("WEATHER_TOKEN")) as weather:
+    async with CurrentWeather(appid="YOUR_TOKEN") as weather:
         response = await weather.get((0, 0))
-        print(response)
+    print(response)
 
 
 if __name__ == "__main__":
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(main())
+    asyncio.run(main())
 ```
 
 Optionally, you can supply your own ClientSession:

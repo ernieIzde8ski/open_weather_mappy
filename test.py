@@ -1,10 +1,10 @@
-from argparse import ArgumentParser
 import asyncio
 import sys
+from argparse import ArgumentParser
 from os import getenv
 
 from owmpy.current import CurrentWeather
-from owmpy.utils import StandardUnits, convert_temp, Units
+from owmpy.utils import StandardUnits, Units, convert_temp
 
 argparser = ArgumentParser()
 argparser.add_argument("lat", type=float, default=0)
