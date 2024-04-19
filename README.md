@@ -35,12 +35,13 @@ import aiohttp
 weather = Client("YOUR_API_TOKEN", client_session=aiohttp.ClientSession())
 ```
 
-## Building
+## Contributing
 
 <!-- for when I inevitably forget again -->
 
 ```sh
-rm -r dist
-python -m build
-twine upload 'dist/*'
+pip install -r requirements-dev.txt
+pre-commit install
 ```
+
+See the Makefile for build process.
