@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 from owmpy import current
 from owmpy.utils import StandardUnits, Units, convert_temp
 
-
 argparser = ArgumentParser()
 argparser.add_argument("lat", type=float)
 argparser.add_argument("lon", type=float)

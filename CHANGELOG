@@ -16,3 +16,7 @@
 ### v1.0.4
 
 - Change sys.id, sys.type to int
+
+### v1.0.5
+
+- Added `__all__` attributes to modules
